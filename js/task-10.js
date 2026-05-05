@@ -3,13 +3,15 @@ function getRandomHexColor() {
     .toString(16)
     .padStart(6, 0)}`;
 }
-const createBtn = document.querySelector("[data-create]");
-const destroyBtn = document.querySelector("[data-destroy]");
-const boxesRef = document.querySelector("#boxes");
-const inputRef = document.querySelector("input");
 
-createBtn.addEventListener("click", onCreateBtnClick);
-destroyBtn.addEventListener("click", onDestroyBtnClick);
+const controlsRef = document.querySelector("#controls");
+const inputRef = controlsRef.querySelector("input");
+const createBtnRef = controlsRef.querySelector("[data-create]");
+const destroyBtnRef = controlsRef.querySelector("[data-destroy]");
+const boxesRef = document.querySelector("#boxes");
+
+createBtnRef.addEventListener("click", onCreateBtnRefClick);
+destroyBtnRef.addEventListener("click", onDestroyBtnRefClick);
 
 function createBoxes(amount) {
   let size = 30;
@@ -19,13 +21,18 @@ function createBoxes(amount) {
     size += 10;
   }
   boxesRef.innerHTML = markup;
-  console.log(amount);
-}
-function onCreateBtnClick(event) {
-  const amount = Number(inputRef.value);
-  createBoxes(amount);
 }
 
-function onDestroyBtnClick(event) {
+function onCreateBtnRefClick(event) {
+  const amount = Number(inputRef.value);
+  if (amount >= 1 && amount <= 10) {
+    createBoxes(amount);
+  } else {
+    alert("Please enter a number from 1 to 10");
+    inputRef.value = "";
+  }
+}
+
+function onDestroyBtnRefClick(event) {
   boxesRef.innerHTML = "";
 }
